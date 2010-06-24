@@ -1,0 +1,6 @@
+module Lam where
+
+id = \x -> x;
+
+plus1 x = (\y -> y +1) x;
+

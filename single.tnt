@@ -1,0 +1,6 @@
+module Single where
+
+one = 1;
+
+two = one + one;
+

@@ -1,0 +1,12 @@
+module Ismember where
+
+is_member _ [] = False;
+is_member x (m:ms) | x == m = True;
+is_member x (_:ms) = is_member x ms;
+
+
+
+
+
+
+

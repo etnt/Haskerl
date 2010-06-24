@@ -1,0 +1,4 @@
+module Isnull where 
+
+null [] = True; 
+null _ = False;

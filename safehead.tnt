@@ -1,0 +1,4 @@
+module Safehead where 
+
+safehead [] = Nothing; 
+safehead (x:_) = Just x;

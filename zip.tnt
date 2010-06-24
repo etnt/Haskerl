@@ -1,0 +1,17 @@
+module Zip where
+
+
+
+zip _ [] = [];
+zip [] _ = [];
+zip (x:xs) (y:ys) = 
+  let z = x+y;
+      zs = zip xs ys
+  in
+     (z:zs);
+
+
+
+
+    
+

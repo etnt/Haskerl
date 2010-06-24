@@ -1,0 +1,53 @@
+module Test where
+
+--
+-- Let expressions
+--
+square x = x*x;
+
+square2 x = let y = x * x 
+            in y + y;
+
+square3 x = let y = x * x 
+            in let z = y + y 
+               in z;
+
+square4 x = let y = x * x;
+                z = y + y 
+            in z;
+
+square5 x = square x + square x;
+
+--
+-- Lambda expressions 
+--
+id = \x -> x;
+
+plus1 x = (\y -> y +1) x;
+
+
+--
+-- Recursion 
+--
+sum1 [] = 0;
+sum1 (x:xs) = x + sum1 xs;
+
+len1 [] = 0;
+len1 (x:xs) = 1 + len1 xs;
+
+
+
+--
+-- If expression
+--
+gt x y = if (x > y) then 1 else 0;
+
+
+
+
+
+
+
+
+
+

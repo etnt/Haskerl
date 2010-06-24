@@ -1,0 +1,16 @@
+module Guard where
+
+sumMembers [] _ = 0;
+sumMembers (x:xs) ms | is_member x ms = x + (sumMembers xs ms);
+sumMembers (_:xs) ms = sumMembers xs ms;
+
+is_member _ [] = False;
+is_member x (m:ms) | x == m = True;
+is_member x (_:ms) = is_member x ms;
+
+
+
+
+
+
+

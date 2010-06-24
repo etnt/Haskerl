@@ -1,0 +1,57 @@
+#!/bin/sh
+#
+# Created: 9 Jul 2007 by tobbe@tornkvist.org
+#
+
+
+usage() 
+{
+  echo ""
+  echo "Usage: `basename $0` [<options>] <FileName>"; echo ""
+  echo ""
+  echo "  where options are:"
+  echo ""
+  echo "   -d   ::  Do not remove intermediate Erlang Core file."
+  echo ""
+  echo "   Example: ./etnt add.tnt"
+  echo ""
+  echo "   Will result in a add.beam file if compilation was successful."
+  echo ""
+}
+debug="false"
+
+while getopts ":d" Option
+do
+  case $Option in
+    d     ) debug="true";;
+    *     ) 
+	  echo "Unknown option: ${OPTARG}";
+	  usage;
+	  exit -1;;
+  esac
+done
+
+#  Decrements the argument pointer so it points to next argument.
+#  $1 now references the first non option item supplied on the command line
+#  if one exists.
+shift $(($OPTIND - 1))
+
+
+if [ "x${1}" = "x" ]; then
+  usage
+  exit 1
+fi
+
+infile="${1}"
+prefix=`basename "${infile}" .tnt`
+outfile="${prefix}.core"
+
+./Etnt ${infile} ${outfile}
+
+erlc +from_core  ${outfile}
+
+# Default is to remove the intermediate file.
+if [ "${debug}" = "false" ]; then
+  rm -f ${outfile}
+fi
+

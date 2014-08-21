@@ -2,7 +2,3 @@ module Gt where
 
 gt x y | x > y = True;
 gt _ _         = False;
-
-
-
-

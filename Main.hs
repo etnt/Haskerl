@@ -4,13 +4,14 @@
 
 module Main where
 
-import System
-import Ecore3
-import Epretty3
+import System.Environment (getArgs)
+import Ecore
+import Epretty
 
 {-
 
- Compile as:  ghc --make -o Etnt Lexer2.hs Ebif2.hs Bkeep2.hs Parser3.hs Ecore3.hs Epretty3.hs Main3.hs
+ Compile as:  ghc --make -o Etnt Lexer.hs Ebif.hs Bkeep.hs
+                            Parser.hs Ecore.hs Epretty.hs Main.hs
 
 -}
 
@@ -19,8 +20,7 @@ main = do
   s <- readFile inFile
   process_file outFile s
 
-process_file outFile s = 
+process_file outFile s =
     let result = (epMod . tm . head) (parser s)
     in do
         writeFile outFile result
-

@@ -2,32 +2,30 @@
 -- Created: 9 Jul 2007 by tobbe@tornkvist.org
 --
 
-module Ebif2 where
+module Ebif where
 
 --import Parser2
-import Bkeep2
+import Bkeep
 
 type BifSpec = (String,String,Arity)
 
-
 isBif :: Name -> Maybe BifSpec
-isBif "+"   = Just ("erlang","+",2)
-isBif "-"   = Just ("erlang","-",2)
-isBif "*"   = Just ("erlang","*",2)
-isBif "/"   = Just ("erlang","/",2)
-isBif ">"   = Just ("erlang",">",2)
-isBif "<"   = Just ("erlang","<",2)
-isBif ">="  = Just ("erlang",">=",2)
-isBif "<="  = Just ("erlang","=<",2)
-isBif "=:=" = Just ("erlang","=:=",2)
-isBif "=="  = Just ("erlang","==",2)
-isBif "=/=" = Just ("erlang","=/=",2)
-isBif "/="  = Just ("erlang","/=",2)
-isBif "&&"  = Just ("erlang","and",2)
-isBif "||"  = Just ("erlang","or",2)
+isBif "+"      = Just ("erlang","+",2)
+isBif "-"      = Just ("erlang","-",2)
+isBif "*"      = Just ("erlang","*",2)
+isBif "/"      = Just ("erlang","/",2)
+isBif ">"      = Just ("erlang",">",2)
+isBif "<"      = Just ("erlang","<",2)
+isBif ">="     = Just ("erlang",">=",2)
+isBif "<="     = Just ("erlang","=<",2)
+isBif "=:="    = Just ("erlang","=:=",2)
+isBif "=="     = Just ("erlang","==",2)
+isBif "=/="    = Just ("erlang","=/=",2)
+isBif "/="     = Just ("erlang","/=",2)
+isBif "&&"     = Just ("erlang","and",2)
+isBif "||"     = Just ("erlang","or",2)
 isBif "error"  = Just ("erlang","error",1)
-isBif _     = Nothing
-
+isBif _        = Nothing
 
 {-
 
@@ -40,7 +38,7 @@ bif erlang:apply/3
 bif erlang:atom_to_list/1
 bif erlang:binary_to_list/1
 bif erlang:binary_to_list/3
-bif erlang:binary_to_term/1	
+bif erlang:binary_to_term/1
 bif erlang:check_process_code/2
 bif erlang:date/0
 bif erlang:delete_module/1

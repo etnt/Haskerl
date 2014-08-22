@@ -1,6 +1,6 @@
 
 all:
-	ghc --make -o Etnt Lexer2.hs Ebif2.hs Bkeep2.hs Parser3.hs Ecore3.hs Epretty3.hs Main3.hs
+	ghc --make -o Etnt Lexer.hs Ebif.hs Bkeep.hs Parser.hs Ecore.hs Epretty.hs Main.hs
 
 clean:
 	rm -f *.hi *.o *.hx

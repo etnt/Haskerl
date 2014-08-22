@@ -1,10 +1,10 @@
 --
 -- Created: 14 Aug 2007 by tobbe@tornkvist.org
---    
+--
 --   ADT + Ops. to maintain various kind of information.
 --
 
-module Bkeep2 where
+module Bkeep where
 
 import Data.Bits
 
@@ -12,7 +12,6 @@ type Name = String
 type Mod = String
 type Fun = Name
 type Arity = Int
-
 
 --
 -- Variable counter. For creating internal vaiables.
@@ -50,9 +49,9 @@ bkNew = Bkeep 0 [] "" 0
 -- Bump the variable counter
 --
 bkBump :: Bkeep -> (Int, Bkeep)
-bkBump (Bkeep i s p f) = 
+bkBump (Bkeep i s p f) =
     let j = i + 1
-    in (j, Bkeep j s p f) 
+    in (j, Bkeep j s p f)
 
 --
 -- Increase the prefix
@@ -90,12 +89,12 @@ bkSyAdd x (Bkeep i syb p f) = Bkeep i (x:syb) p f
 --
 bkSyFun :: String -> Bkeep -> Maybe Stab
 bkSyFun name (Bkeep _ [] _ _) = Nothing
-bkSyFun name (Bkeep _ ((Sfa n1 arity):xs) _ _) | name == n1 = Just (Sfa n1 arity)
+bkSyFun name (Bkeep _ ((Sfa n1 arity):xs) _ _)|name == n1 = Just (Sfa n1 arity)
 bkSyFun name (Bkeep i (_:xs) p f) = bkSyFun name (Bkeep i xs p f)
 
--- 
+--
 -- Set bit flags
--- 
+--
 
 fInsideGuard = 1
 
@@ -107,6 +106,3 @@ bkClrInsideGuard (Bkeep i syb p f) = (Bkeep i syb p (f `clearBit` fInsideGuard))
 
 bkIsInsideGuard :: Bkeep -> Bool
 bkIsInsideGuard (Bkeep i syb p f) = (f `testBit` fInsideGuard)
-
-
-

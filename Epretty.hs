@@ -2,13 +2,13 @@
 -- Created: 9 Jul 2007 by tobbe@tornkvist.org
 --
 
-module Epretty3 where
+module Epretty where
 
 import Data.Char
-import Ebif2
-import Bkeep2
-import Parser3
-import Ecore3
+import Ebif
+import Bkeep
+import Parser
+import Ecore
 
 --
 -- Generate Ecore code from an EMod data structure.
@@ -170,7 +170,7 @@ mkAtom a = "'" ++ a ++ "'"
 modInfo :: String -> String
 modInfo m 
     = "\n\n'module_info'/0 = fun () -> call 'erlang':'get_module_info' ('"++m++"')\n"++
-      "'module_info'/1 = fun (_cor0) ->	call 'erlang':'get_module_info' ('"++m++"', _cor0)"
+      "'module_info'/1 = fun (_cor0) -> call 'erlang':'get_module_info' ('"++m++"', _cor0)"
 
 
 --

@@ -3,13 +3,13 @@
 -- Desc: Transform the parser output into the form that Epretty.hs expects.
 --
 
-module Ecore3 where
+module Ecore where
 
 import Data.Char
 import Text.ParserCombinators.Parsec
-import Ebif2
-import Bkeep2
-import Parser3
+import Ebif
+import Bkeep
+import Parser
 
 type EAtom = String                       -- Atom
 
@@ -86,7 +86,7 @@ myFilter (x:xs)             = x:(myFilter xs)
 --
 mkCurryFuns :: (String,Arity) -> [EFdef]
 mkCurryFuns (_,0) = []
-mkCurryFuns (fname,arity+1) = map (mkCurryFun fname) [0..arity]
+mkCurryFuns (fname,arity) = map (mkCurryFun fname) [0..(arity-1)]
 
 mkCurryFun :: String -> Int -> EFdef
 mkCurryFun fname arity =

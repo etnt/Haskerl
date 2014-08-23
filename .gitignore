@@ -1,4 +1,5 @@
 *.hi
 *.o
 *.core
+*.beam
 Etnt

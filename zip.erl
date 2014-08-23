@@ -3,4 +3,3 @@
 
 zip([],[]) -> [];
 zip([X|Xs],[Y|Ys]) -> [X+Y|zip(Xs,Ys)].
-    

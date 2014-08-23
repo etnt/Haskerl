@@ -3,8 +3,7 @@
 # Created: 9 Jul 2007 by tobbe@tornkvist.org
 #
 
-
-usage() 
+usage()
 {
   echo ""
   echo "Usage: `basename $0` [<options>] <FileName>"; echo ""
@@ -24,7 +23,7 @@ while getopts ":d" Option
 do
   case $Option in
     d     ) debug="true";;
-    *     ) 
+    *     )
 	  echo "Unknown option: ${OPTARG}";
 	  usage;
 	  exit -1;;
@@ -54,4 +53,3 @@ erlc +from_core  ${outfile}
 if [ "${debug}" = "false" ]; then
   rm -f ${outfile}
 fi
-

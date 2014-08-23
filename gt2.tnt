@@ -1,0 +1,5 @@
+module Gt2 where
+
+gt :: Int -> Int -> Boolean
+gt x y | x > y = True
+gt _ _         = False

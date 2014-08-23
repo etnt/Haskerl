@@ -49,19 +49,30 @@ data Tok = TokenLet
          | TokenCB
     deriving (Eq, Show)
 
+identifier :: GenParser Char st String
 identifier = do
     c <- lower
     cs <- many (letter <|> digit <|> oneOf ['_','\''])
     return (c:cs)
 
+constructorid :: GenParser Char st String
 constructorid = do
     c <- upper
     cs <- many (letter <|> digit)
     return (c:cs)
 
+comment :: GenParser Char st String
 comment = string "--" >>
           anyChar `manyTill` newline
 
+lineend :: GenParser Char st [Token]
+lineend = do many $ oneOf [' ', '\t'] -- remove whitespace before newline
+             end <- option [] $ do newline
+                                   p2 <- getPosition
+                                   return [(p2, TokenSemi)]
+             return end
+
+parseToken :: GenParser Char st [Token]
 parseToken = choice [
     try $ many1 space     >> return [],
     try $ comment         >> return [],
@@ -89,18 +100,15 @@ parseToken = choice [
              return [(p, TokenTsign), (p2, TokenSemi)],
     try $ do s <- many1 digit
              p <- getPosition
-             return [(p,TokenInt $ read s)],
+             end <- lineend
+             return $ [(p,TokenInt $ read s)] ++ end,
     do s   <- identifier
        p   <- getPosition
-       end <- option [] $ do newline
-                             p2 <- getPosition
-                             return [(p2, TokenSemi)]
+       end <- lineend
        return $ [(p,TokenVar s)] ++ end,
     do s   <- constructorid
        p   <- getPosition
-       end <- option [] $ do newline
-                             p2 <- getPosition
-                             return [(p2, TokenSemi)]
+       end <- lineend
        return $ [(p,TokenTcon s)] ++ end,
     char '\\' >> getPosition >>= \p -> return [(p, TokenLambda)],
     char '_'  >> getPosition >>= \p -> return [(p, TokenDcare)],
@@ -116,9 +124,15 @@ parseToken = choice [
     char ':'  >> getPosition >>= \p -> return [(p, TokenCons)],
     char ';'  >> getPosition >>= \p -> return [(p, TokenSemi)],
     char '('  >> getPosition >>= \p -> return [(p, TokenOP)],
-    char ')'  >> getPosition >>= \p -> return [(p, TokenCP)],
+    do char ')'
+       p   <- getPosition
+       end <- lineend
+       return $ [(p, TokenCP)] ++ end,
     char '['  >> getPosition >>= \p -> return [(p, TokenOB)],
-    char ']'  >> getPosition >>= \p -> return [(p, TokenCB)]]
+    do char ']'
+       p   <- getPosition
+       end <- lineend
+       return $ [(p, TokenCB)] ++ end]
 
 lexer :: GenParser Char st [Token]
 lexer = do xs <- fmap concat (many parseToken)

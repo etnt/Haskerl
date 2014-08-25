@@ -575,21 +575,31 @@ tyvar = varid
 varid :: MyParser String
 varid = ename
 
---
--- parseTest program (scanner "add x y = x + y; mul x z = z*x;")
--- parseTest program (scanner "data Bool = True | False; add x y = x + y; mul x z = z*x;")
--- parseTest program (scanner "head :: [a] -> a;")
---
+{-
+   parseTest program (scanner "add x y = x + y;
+                               mul x z = z*x;")
+   parseTest program (scanner "data Bool = True | False;
+                               add x y = x + y;
+                               mul x z = z*x;")
+   parseTest program (scanner "head :: [a] -> a;")
+-}
 program :: MyParser CoreProgram
 program = do p <- endBy1 sc eSemi
              return $ p
 
---
--- parseTest corePgm (scanner "module add where add (x:xs) (y:ys) = x + y; mul x z = z*x;")
--- parseTest corePgm (scanner "module abc where add (x:xs) (y:ys) = x + y; sum [] = 0; sum (x:xs) = x + sum xs; mul x z = z*x;")
--- parseTest corePgm (scanner "module zip where zip [] [] = []; zip (x:xs) (y:ys) = (x+y):zip xs ys")
--- parseTest corePgm (scanner "module zip where zip [] [] = []; zip (x:xs) (y:ys) = let z = x+y;zs = zip xs ys in (z:zs)")
---
+{-
+   parseTest corePgm (scanner "module add where add (x:xs) (y:ys) = x + y;
+                               mul x z = z*x;")
+   parseTest corePgm (scanner "module abc where add (x:xs) (y:ys) = x + y;
+                               sum [] = 0;
+                               sum (x:xs) = x + sum xs;
+                               mul x z = z*x;")
+   parseTest corePgm (scanner "module zip where zip [] [] = [];
+                               zip (x:xs) (y:ys) = (x+y):zip xs ys")
+   parseTest corePgm (scanner "module zip where zip [] [] = [];
+                               zip (x:xs) (y:ys) = let z = x+y;
+                               zs = zip xs ys in (z:zs)")
+-}
 corePgm :: MyParser CoreModule
 corePgm = do eModule
              modName <- conid

@@ -1,0 +1,44 @@
+module Prelude2 where
+
+null :: [a] -> Bool
+null []    = True
+null (_:_) = False
+
+
+head :: [a] -> a
+head (x:_) = x
+
+
+last :: [a] -> a
+last [x] = x
+last (_:xs) = last xs
+
+
+map :: (a -> b) -> [a] -> [b]  
+map f [] = []   
+map f (x:xs) = let z = f x  
+                   zs = map f xs 
+               in (z:zs)   
+
+
+foldl :: (a -> b -> a) -> a -> [b] -> a
+foldl _ v [] = v
+foldl f v (x:xs) = let z = f v x
+                   in foldl f z xs
+
+
+foldr :: (a -> b -> b) -> b -> [a] -> b
+foldr _ v [] = v
+foldr f v (x:xs) = let z = foldr f v xs
+                   in f x z
+
+
+sum :: [a] -> a
+sum xs = foldl (+) 0 xs
+
+
+prod :: [a] -> a
+prod xs = foldl (*) 0 xs
+
+
+

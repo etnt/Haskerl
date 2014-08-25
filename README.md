@@ -1,3 +1,8 @@
+Prerequisites:
+GHC
+Parsec
+(easiest way to get it is from: <a href="https://www.haskell.org/platform/">Haskell Platform</a>)
+
 How to compile beam code from haskell code:
 
 First off, run make to build the Etnt compiler:

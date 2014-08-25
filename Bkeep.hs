@@ -76,7 +76,7 @@ bkPix (Bkeep _ _ p _) = p
 -- Remove current prefix
 --
 bkPix0 :: Bkeep -> Bkeep
-bkPix0 (Bkeep i s _ f) = (Bkeep i s "" f)
+bkPix0 (Bkeep i s _ f) = Bkeep i s "" f
 
 --
 -- Add entry to Symbol Table
@@ -88,21 +88,25 @@ bkSyAdd x (Bkeep i syb p f) = Bkeep i (x:syb) p f
 -- Get entry from Symbol Table
 --
 bkSyFun :: String -> Bkeep -> Maybe Stab
-bkSyFun name (Bkeep _ [] _ _) = Nothing
-bkSyFun name (Bkeep _ ((Sfa n1 arity):xs) _ _)|name == n1 = Just (Sfa n1 arity)
-bkSyFun name (Bkeep i (_:xs) p f) = bkSyFun name (Bkeep i xs p f)
+bkSyFun name (Bkeep _ [] _ _) =
+    Nothing
+bkSyFun name (Bkeep _ ((Sfa n1 arity):xs) _ _) | name == n1 =
+    Just $ Sfa n1 arity
+bkSyFun name (Bkeep i (_:xs) p f) =
+    bkSyFun name (Bkeep i xs p f)
 
 --
 -- Set bit flags
 --
 
+fInsideGuard :: Int
 fInsideGuard = 1
 
 bkSetInsideGuard :: Bkeep -> Bkeep
-bkSetInsideGuard (Bkeep i syb p f) = (Bkeep i syb p (f `setBit` fInsideGuard))
+bkSetInsideGuard (Bkeep i syb p f) = Bkeep i syb p (f `setBit` fInsideGuard)
 
 bkClrInsideGuard :: Bkeep -> Bkeep
-bkClrInsideGuard (Bkeep i syb p f) = (Bkeep i syb p (f `clearBit` fInsideGuard))
+bkClrInsideGuard (Bkeep i syb p f) = Bkeep i syb p (f `clearBit` fInsideGuard)
 
 bkIsInsideGuard :: Bkeep -> Bool
-bkIsInsideGuard (Bkeep i syb p f) = (f `testBit` fInsideGuard)
+bkIsInsideGuard (Bkeep i syb p f) = f `testBit` fInsideGuard

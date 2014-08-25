@@ -1,7 +1,4 @@
 module Sum where
-
+sum1 :: [Num a] -> Num a
 sum1 [] = 0;
 sum1 (x:xs) = x + sum1 xs;
-
-
-

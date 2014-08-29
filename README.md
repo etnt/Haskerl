@@ -1,10 +1,15 @@
 Prerequisites:
-+ <a href="https://www.erlang-solutions.com/downloads/download-erlang-otp">Erlang OTP</a>
-<br/>
-+ GHC (easiest way to get it is from: <a href="https://www.haskell.org/platform/">Haskell Platform</a>)
-<br/>
-+ Parsec (Through cabal: cabal install parsec)
-<br/>
+<ul>
+    <li>
+        <a href="https://www.erlang-solutions.com/downloads/download-erlang-otp">Erlang OTP</a>
+    </li>
+    <li>
+        GHC (easiest way to get it is from: <a href="https://www.haskell.org/platform/">Haskell Platform</a>)
+    </li>
+    <li>
+        Parsec (Through cabal: cabal install parsec)
+    </li>
+</ul>
 <br/>
 Build the Etnt compiler (Etnt):
 <br/>

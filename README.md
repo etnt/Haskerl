@@ -1,4 +1,4 @@
-Prerequisites:
+<h3>Prerequisites:</h3>
 <ul>
     <li>
         <a href="https://www.erlang-solutions.com/downloads/download-erlang-otp">Erlang OTP</a>

@@ -1,3 +1,6 @@
+<i>This project allows compiling a subset of haskell to the erlang WM (beam).</i>
+<br/>
+<br/>
 <h3>Prerequisites:</h3>
 <ul>
     <li>
